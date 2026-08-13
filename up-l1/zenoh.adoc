@@ -51,7 +51,7 @@ The value of a Zenoh Resource that is used to convey a uProtocol message *MUST* 
 a| *MUST* be set to a single byte representing the UProtocol major version (`0x01` at the time of writing)
 
 | 2
-a| *MUST* be set to the bytes representing the protobuf encoding of the UAttributes object as defined by link:../up-core-api/uprotocol/v1/uattributes.proto
+a| *MUST* be set to the bytes representing the link:../up-core-api/uprotocol/v1/uattributes.proto[protobuf encoding of the UAttributes object]
 
 |===
 
