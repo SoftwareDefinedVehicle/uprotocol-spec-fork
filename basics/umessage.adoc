@@ -36,7 +36,7 @@ classDiagram
 
 class UMessage {
   attributes: UAttributes
-  payload : byte[*]
+  payload : byte[0..*]
 }
 ----
 

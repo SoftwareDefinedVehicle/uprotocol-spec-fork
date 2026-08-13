@@ -55,12 +55,12 @@ The FindServices() API is used to find service instances matching search criteri
 
 [.specitem,oft-sid="dsn~discovery-findservices-error-notfound~1",oft-needs="impl,test"]
 --
-* *MUST* return a `UCode.NOT_FOUND` if no service matching the passed URI was found. 
+* *MUST* return a `UCode.NotFound` if no service matching the passed URI was found. 
 --
 
 [.specitem,oft-sid="dsn~discovery-findservices-error-invalid-argument~1",oft-needs="impl,test"]
 --
-* *MUST* return a `UCode.INVALID_ARGUMENT` if: 
+* *MUST* return a `UCode.InvalidArgument` if: 
   * `recursive==true` and `authority_name` does not contain the wildcard `*`.
   * `UUri` is empty
   
@@ -68,7 +68,7 @@ The FindServices() API is used to find service instances matching search criteri
 
 [.specitem,oft-sid="dsn~discovery-findservices-error-permission-denied~1",oft-needs="impl,test"]
 --
-* *MUST* return a `UCode.PERMISSION_DENIED` if the caller is not permitted to query for that service.
+* *MUST* return a `UCode.PermissionDenied` if the caller is not permitted to query for that service.
 --
 
 ==== Example Use Cases
@@ -94,17 +94,17 @@ The GetServiceTopics() API is used to fetch metadata about one or more topics (d
 
 [.specitem,oft-sid="dsn~discovery-getservicetopics-error-notfound~1",oft-needs="impl,test"]
 --
-* *MUST* return a `UCode.NOT_FOUND` if no topic matching the URI was found.
+* *MUST* return a `UCode.NotFound` if no topic matching the URI was found.
 --
 
 [.specitem,oft-sid="dsn~discovery-getservicetopics-error-invalid-argument~1",oft-needs="impl,test"]
 --
-* *MUST* return a `UCode.INVALID_ARGUMENT` if the URI passed in is not a valid xref:../../../basics/uri.adoc[uProtocol UUri].
+* *MUST* return a `UCode.InvalidArgument` if the URI passed in is not a valid xref:../../../basics/uri.adoc[uProtocol UUri].
 --
 
 [.specitem,oft-sid="dsn~discovery-getservicetopics-error-permission-denied~1",oft-needs="impl,test"]
 --
-* *MUST* return a `UCode.PERMISSION_DENIED` if the caller is not permitted to query for that topic.
+* *MUST* return a `UCode.PermissionDenied` if the caller is not permitted to query for that topic.
 --
 
 ==== Example Use Cases

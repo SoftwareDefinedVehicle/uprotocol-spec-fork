@@ -155,7 +155,7 @@ a|
 uProtocol URI of the topic to subscribe to.
 
 [.specitem,oft-sid="dsn~usubscription-subscribe-valid-topic-uuris~1",oft-needs="impl,utest",oft-tags="uSubscription"]
-Calls to the uSubscription service `Subscribe()` operation *MUST* return a failure status message with {ucode_proto_ref} `INVALID_ARGUMENT` in case a `topic` UURI violates the xref:usubscription-topics[topic UURI rules].
+Calls to the uSubscription service `Subscribe()` operation *MUST* return a failure status message with {ucode_proto_ref} `InvalidArgument` in case a `topic` UURI violates the xref:usubscription-topics[topic UURI rules].
 --
 
 | `expiration`
@@ -301,7 +301,7 @@ a|
 uProtocol URI of the topic to unsubscribe from.
 
 [.specitem,oft-sid="dsn~usubscription-unsubscribe-valid-topic-uuris~1",oft-needs="impl,utest",oft-tags="uSubscription"]
-Calls to the uSubscription service `Unsubscribe()` operation *MUST* return a failure status message with {ucode_proto_ref} `INVALID_ARGUMENT` in case a `topic` UURI violates the xref:usubscription-topics[topic UURI rules].
+Calls to the uSubscription service `Unsubscribe()` operation *MUST* return a failure status message with {ucode_proto_ref} `InvalidArgument` in case a `topic` UURI violates the xref:usubscription-topics[topic UURI rules].
 --
 |===
 
@@ -381,7 +381,7 @@ A topic filter {uuri_ref} may be provided as part of a call to `FetchSubcription
 NOTE: Refer to {uuri_matching_ref} regarding matching wildcard patterns in UURIs.
 
 [.specitem,oft-sid="dsn~usubscription-fetch-subscriptions-invalid-topic-filter~1",oft-needs="impl,utest",oft-tags="uSubscription"]
-The uSubscription service `FetchSubscriptions()` operation *MUST* return a failure status message with {ucode_proto_ref} `INVALID_ARGUMENT` in case a topic filter UURI is not a valid {uuri_ref}.
+The uSubscription service `FetchSubscriptions()` operation *MUST* return a failure status message with {ucode_proto_ref} `InvalidArgument` in case a topic filter UURI is not a valid {uuri_ref}.
 --
 
 | subscriberFilter
@@ -395,7 +395,7 @@ A subscriber filter {uuri_ref} may be provided as part of a call to `FetchSubcri
 NOTE: Refer to {uuri_matching_ref} regarding matching wildcard patterns in UURIs.
 
 [.specitem,oft-sid="dsn~usubscription-fetch-subscriptions-invalid-subscriber-filter~1",oft-needs="impl,utest",oft-tags="uSubscription"]
-The uSubscription service `FetchSubscriptions()` operation *MUST* return a failure status message with {ucode_proto_ref} `INVALID_ARGUMENT` in case a subscriber filter UURI is not a valid {uuri_ref}.
+The uSubscription service `FetchSubscriptions()` operation *MUST* return a failure status message with {ucode_proto_ref} `InvalidArgument` in case a subscriber filter UURI is not a valid {uuri_ref}.
 --
 |===
 
@@ -727,7 +727,7 @@ When a client invokes the uSubscription service's `Reset()` operation, uSubscrip
 3. send `Subscription` messages to each client subscribed to a topic or that has registered for notifications about a topic, with xref:subscription-status[SubscriptionStatus] `UNSUBSCRIBED`
 
 [.specitem,oft-sid="req~usubscription-reset-only-usubscription~1",oft-needs="impl,utest",oft-tags="uSubscription"]
-When receiving a `Reset()` call from a source that is not another uSubscription services (i.e. from source URIs where uEntity type does not equal `0x0`), uSubscription service *MUST* return a failure status message with {ucode_link} `PERMISSION_DENIED`.
+When receiving a `Reset()` call from a source that is not another uSubscription services (i.e. from source URIs where uEntity type does not equal `0x0`), uSubscription service *MUST* return a failure status message with {ucode_link} `PermissionDenied`.
 
 ---
 
@@ -759,7 +759,7 @@ sequenceDiagram
     opt Reset() called by different uEntity
         C->>L: Reset()
         activate L
-           L--)C : UCode.PERMISSION_DENIED
+           L--)C : UCode.PermissionDenied
         deactivate L
     end
 ----

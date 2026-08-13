@@ -77,36 +77,36 @@ If the uP-L1 delivery method is push:
 
 == RPC Error Handling
 
-When a dispatcher is unable to dispatch an event for a given reason (queue full, etc...), the dispatcher is responsible to generate an RPC Response message and send it to the originator of the request. The status code is populated in the  link:../messages/v1/README.adoc#_response_message[`commstatus`] attribute of the response message using the <<commstatus-codes>> defined below.
+When a dispatcher is unable to dispatch an event for a given reason (queue full, etc...), the dispatcher is responsible to generate an RPC Response message and send it to the originator of the request. The status code is populated in the xref:../../basics/uattributes.adoc#response-attributes[`commstatus`] attribute of the response message using the <<commstatus-codes>> defined below.
 
 .commstatus Codes
 [#commstatus-codes]
 [width="100%",cols="30%,60%",options="header",]
 !===
-|*google.rpc.Code* |*Reason*
+|*UCode* |*Reason*
 
-|`*UNAVAILABLE*`
+|`Unavailable`
 |The service is not available (at the moment), e.g. because the device that the service is deployed to is being restarted. The client MAY retry the request but SHOULD use an exponential back-off for doing so.
 
-|`*DEADLINE_EXCEEDED*`
+|`DeadlineExceeded`
 |The time-to-live set in the client's request has expired.
 
-|`*PERMISSION_DENIED*`
+|`PermissionDenied`
 |The client is not authorized to invoke the service operation.
 
-|`*UNAUTHENTICATED*`
+|`Unauthenticated`
 |The credentials provided by the client could not be verified, e.g. because the client's identity does not match the source attribute.
 
-|`*RESOURCE_EXHAUSTED*`
+|`ResourceExhausted`
 |The dispatcher ran out of resources, e.g. because a message queue's maximum capacity has been reached.
 
-|`*INVALID_ARGUMENT*`
+|`InvalidArgument`
 |The service can not process the request message, e.g. because an attribute or the payload does not have the expected format.
 
-|`*UNKNOWN*`
+|`Unknown`
 |An unknown (but not critical) error has occurred.
 
-|`*INTERNAL*`
+|`Internal`
 |A serious error has occurred that is not covered by any of the error codes mentioned above.
 !===
 

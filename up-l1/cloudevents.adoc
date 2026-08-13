@@ -176,42 +176,42 @@ This mapping *MUST* be used by uProtocol Transport Libraries which use the Proto
 |===
 |UPayloadFormat |CE `pformat` |CE `dataschema` |CE Property to map Payload Data to
 
-|`UPAYLOAD_FORMAT_UNSPECIFIED`
+|`Unspecified`
 |`-`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`binary_data`
 
-|`UPAYLOAD_FORMAT_PROTOBUF_WRAPPED_IN_ANY`
+|`ProtobufWrappedInAny`
 |`0x01`
 |*MAY* be set to `type.googleapis.com/google.protobuf.Any`
 |`proto_data`
 
-|`UPAYLOAD_FORMAT_PROTOBUF`
+|`Protobuf`
 |`0x02`
 |*SHOULD* be set to the protobuf's type URL
 |`proto_data`
 
-|`UPAYLOAD_FORMAT_JSON`
+|`Json`
 |`0x03`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`text_data`
 
-|`UPAYLOAD_FORMAT_SOMEIP`
+|`SomeIp`
 |`0x04`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`binary_data`
 
-|`UPAYLOAD_FORMAT_SOMEIP_TLV`
+|`SomeIpTlv`
 |`0x05`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`binary_data`
 
-|`UPAYLOAD_FORMAT_RAW`
+|`Raw`
 |`0x06`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`binary_data`
 
-|`UPAYLOAD_FORMAT_TEXT`
+|`Text`
 |`0x07`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`text_data`
@@ -228,42 +228,42 @@ This mapping *MUST* be used by uProtocol Transport Libraries which use the JSON 
 |===
 |UPayloadFormat |CE `pformat` |CE `dataschema` |CE Property to map Payload to
 
-|`UPAYLOAD_FORMAT_UNSPECIFIED`
+|`Unspecified`
 |`-`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`data_base64`
 
-|`UPAYLOAD_FORMAT_PROTOBUF_WRAPPED_IN_ANY`
+|`ProtobufWrappedInAny`
 |`0x01`
 |*MAY* be set to `type.googleapis.com/google.protobuf.Any`
 |`data_base64`
 
-|`UPAYLOAD_FORMAT_PROTOBUF`
+|`Protobuf`
 |`0x02`
 |*SHOULD* be set to the protobuf's type URL
 |`data_base64`
 
-|`UPAYLOAD_FORMAT_JSON`
+|`Json`
 |`0x03`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`data`
 
-|`UPAYLOAD_FORMAT_SOMEIP`
+|`SomeIp`
 |`0x04`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`data_base64`
 
-|`UPAYLOAD_FORMAT_SOMEIP_TLV`
+|`SomeIpTlv`
 |`0x05`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`data_base64`
 
-|`UPAYLOAD_FORMAT_RAW`
+|`Raw`
 |`0x06`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`data_base64`
 
-|`UPAYLOAD_FORMAT_TEXT`
+|`Text`
 |`0x07`
 |*MAY* be set to a URI-Reference identifying the schema that the data adheres to
 |`data`

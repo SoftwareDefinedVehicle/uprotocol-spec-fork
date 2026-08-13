@@ -72,7 +72,7 @@ The uProtocol service classes *MUST* be mapped to Zenoh message priority levels 
 
 [cols="1,1"]
 |===
-| uProtocol Service Class | Zenoh Message Priority
+| UPriority | Zenoh Message Priority
 
 | `CS0` | `BACKGROUND`
 | `CS1` | `DATA_LOW`
@@ -81,7 +81,6 @@ The uProtocol service classes *MUST* be mapped to Zenoh message priority levels 
 | `CS4` | `INTERACTIVE_LOW`
 | `CS5` | `INTERACTIVE_HIGH`
 | `CS6` | `REAL_TIME`
-| `UNSPECIFIED` | `DATA_LOW`
 |===
 --
 

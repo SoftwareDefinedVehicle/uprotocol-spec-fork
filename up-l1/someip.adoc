@@ -115,8 +115,8 @@ The following sections highlight the mapping of xref:../basics/uattributes.adoc[
 
 | priority | Not available in SOME/IP. Default UPriority values are used per UMessage type as described in xref:../basics/uattributes.adoc[UAttributes].
 
-* SOME/IP `NOTIFICATION` *SHOULD* use the xref:../basics/upriority.adoc[CS1] priority.
-* SOME/IP `REQUEST` *SHOULD* use xref:../basics/upriority.adoc[CS4] or higher priority.
+* SOME/IP `NOTIFICATION` *SHOULD* use the xref:../basics/upriority.adoc[UPriority.CS1] priority.
+* SOME/IP `REQUEST` *SHOULD* use xref:../basics/upriority.adoc[UPriority.CS4] or higher priority.
 * SOME/IP `RESPONSE` *MUST* use the priority from its corresponding `REQUEST` message.
 
 | ttl | Should be checked for incoming `UMESSAGE_TYPE_REQUEST` messages.
@@ -162,10 +162,10 @@ Further details of the usage of IDs for the various message types is described <
 |===
 | UMessageType | SOME/IP Type | Details
 
-| UMESSAGE_TYPE_PUBLISH | NOTIFICATION | Publish SOME/IP Events.
-| UMESSAGE_TYPE_NOTIFICATION | n/a | Same as SOME/IP `NOTIFICATION`.
-| UMESSAGE_TYPE_REQUEST | REQUEST | RPC Request
-| UMESSAGE_TYPE_RESPONSE | RESPONSE or ERROR | RPC Response or Error has occurred while attempting to deliver the message.
+| Publish | NOTIFICATION | Publish SOME/IP Events.
+| Notification | n/a | Same as SOME/IP `NOTIFICATION`.
+| RpcRequest | REQUEST | RPC Request
+| RpcResponse | RESPONSE or ERROR | RPC Response or Error has occurred while attempting to deliver the message.
 |===
 
 * When receiving *uProtocol* initiated requests:
@@ -175,7 +175,7 @@ Further details of the usage of IDs for the various message types is described <
   response.priority = request.priority
   response.reqid = request.id
 
-** *MUST* clean up the cache after the `ttl` has expired and send an Error `UMESSAGE_TYPE_RESPONSE`
+** *MUST* clean up the cache after the `ttl` has expired and send an Error `UMessageType.RpcResponse`
 ** *MUST* ignore incoming SOME/IP Response(s) for an expired Request.
 
 * When sending auto-generated SOME/IP *REQUEST* messages:
@@ -199,11 +199,11 @@ Further details of the usage of IDs for the various message types is described <
 .2+^.^h| UMessageType .2+^.^h| SOME/IP Type 2+^.^h| MessageID 2+^.^h| RequestID .2+^.^h| Interface Version .2+^.^h| Return Code (commstatus)
 ^.^h| ServiceID xref:#note-1[^(1)^] ^.^h| MethodID ^.^h| ClientID xref:#note-1[^(1)^],xref:#note-4[^(4)^] ^.^h| SessionID
 
-| NOTIFICATION xref:#note-5[^(5)^] | REQUEST_NO_RETURN (0x01) | sink.ue_id   | sink.resource_id | source.ue_id | xref:#note-2[^(2)^],xref:#note-3[^(3)^] | sink.ue_major_version   |
-| PUBLISH       | NOTIFICATION (0x02)      | source.ue_id  | source.resource_id | sink.ue_id=0  | xref:#note-2[^(2)^]       | source.ue_major_version |
-| REQUEST       | REQUEST (0x00)           | sink.ue_id    | sink.resource_id   | source.ue_id  | xref:#note-2[^(2)^],xref:#note-3[^(3)^] | sink.ue_major_version   | OK
+| Notification xref:#note-5[^(5)^] | REQUEST_NO_RETURN (0x01) | sink.ue_id   | sink.resource_id | source.ue_id | xref:#note-2[^(2)^],xref:#note-3[^(3)^] | sink.ue_major_version   |
+| Publish | NOTIFICATION (0x02)      | source.ue_id  | source.resource_id | sink.ue_id=0  | xref:#note-2[^(2)^]       | source.ue_major_version |
+| RpcRequest | REQUEST (0x00)           | sink.ue_id    | sink.resource_id   | source.ue_id  | xref:#note-2[^(2)^],xref:#note-3[^(3)^] | sink.ue_major_version   | OK
 
-.2+.^| RESPONSE .^| RESPONSE (0x80) | sink.ue_id  | sink.resource_id | source.ue_id | xref:#note-2[^(2)^],xref:#note-3[^(3)^] | sink.ue_major_version | OK
+.2+.^| RpcResponse .^| RESPONSE (0x80) | sink.ue_id  | sink.resource_id | source.ue_id | xref:#note-2[^(2)^],xref:#note-3[^(3)^] | sink.ue_major_version | OK
                 .^| ERROR (0x81)    | sink.ue_id  | sink.resource_id | source.ue_id | xref:#note-2[^(2)^],xref:#note-3[^(3)^] | sink.ue_major_version |  <<commstatus-error-mapping,commstatus>>
 |===
 
@@ -225,15 +225,23 @@ NOTES::
 |===
 | UCode | SOME/IP Error Codes
 
-| OK | E_OK
-| INVALID_ARGUMENT | E_WRONG_MESSAGE_TYPE / E_UNKNOWN_METHOD
-| DEADLINE_EXCEEDED | E_TIMEOUT
-| NOT_FOUND | E_UNKNOWN_SERVICE
-| UNAVAILABLE | E_NOT_READY
-| DATA_LOSS | E_MALFORMED_MESSAGE
-| INTERNAL | E_NOT_REACHABLE
-| UNKNOWN | E_NOT_OK
-| FAILED_PRECONDITION | E_WRONG_PROTOCOL_VERSION / E_WRONG_INTERFACE_VERSION
+| Ok | E_OK
+| Cancelled | E_NOT_OK
+| Unknown | E_NOT_OK
+| InvalidArgument | E_WRONG_MESSAGE_TYPE / E_UNKNOWN_METHOD
+| DeadlineExceeded | E_TIMEOUT
+| NotFound | E_UNKNOWN_SERVICE
+| AlreadyExists | E_NOT_OK
+| PermissionDenied | E_NOT_OK
+| Unauthenticated | E_NOT_OK
+| ResourceExhausted | E_NOT_OK
+| FailedPrecondition | E_WRONG_PROTOCOL_VERSION / E_WRONG_INTERFACE_VERSION
+| Aborted | E_NOT_OK
+| OutOfRange | E_NOT_OK
+| Unimplemented | E_NOT_OK
+| Internal | E_NOT_REACHABLE
+| Unavailable | E_NOT_READY
+| DataLoss | E_MALFORMED_MESSAGE
 |===
 
 

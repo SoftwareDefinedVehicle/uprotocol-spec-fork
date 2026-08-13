@@ -53,8 +53,8 @@ class UMessageType {
   <<Enumeration>>
   Publish
   Notification
-  RPC Request
-  RPC Response
+  RpcRequest
+  RpcResponse
 }
 
 class UPriority {
@@ -70,20 +70,20 @@ class UPriority {
 
 class UPayloadFormat {
   <<Enumeration>>
-  UPAYLOAD_FORMAT_UNSPECIFIED
-  UPAYLOAD_FORMAT_PROTOBUF_WRAPPED_IN_ANY
-  UPAYLOAD_FORMAT_PROTOBUF
-  UPAYLOAD_FORMAT_JSON
-  UPAYLOAD_FORMAT_SOMEIP
-  UPAYLOAD_FORMAT_SOMEIP_TLV
-  UPAYLOAD_FORMAT_RAW
-  UPAYLOAD_FORMAT_TEXT
-  UPAYLOAD_FORMAT_SHM
+  Unspecified
+  ProtobufWrappedInAny
+  Protobuf
+  Json
+  SomeIp
+  SomeIpTlv
+  Raw
+  Text
+  SHM
 }
 
-UAttributes --> UMessageType : type
-UAttributes --> "0..1" UPriority : priority
-UAttributes --> "0..1" UPayloadFormat : payloadFormat
+UAttributes o-- UMessageType : type
+UAttributes o-- "0..1" UPriority : priority
+UAttributes o-- "0..1" UPayloadFormat : payloadFormat
 ----
 
 Each xref:../languages.adoc[uProtocol Language Library]
@@ -98,8 +98,10 @@ Each xref:../languages.adoc[uProtocol Language Library]
 * *MUST* support writing and reading of an instance of the <<uattributes-data-model>> to/from a protobuf as defined in link:../up-core-api/uprotocol/v1/uattributes.proto[uattributes.proto].
 --
 
+[#uattributes-message-types]
 uProtocol defines four types of messages:
 
+.Message Types
 [cols="1,5"]
 |===
 |Type |Description
@@ -110,10 +112,10 @@ uProtocol defines four types of messages:
 |Notification
 |A message that is used to inform a specific consumer about an event that has occurred.
 
-|RPC Request
+|RpcRequest
 |A message that is used by a service consumer to invoke one of a service provider's methods with some input data, expecting the service provider to reply with a response message.
 
-|RPC Response
+|RpcResponse
 |A message that is used by a service provider to send the outcome of processing a request message
 from a service consumer.
 |===
@@ -182,7 +184,7 @@ A tracing identifier to use for correlating messages across the system. Intended
 a|The format of the payload (data).
 [.specitem,oft-sid="dsn~up-attributes-payload-format~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-* *MUST NOT* contain a value if the message has no payload.
+The payload format *MUST* be empty if the message has no payload.
 --
 
 |===
@@ -197,12 +199,12 @@ The following table defines attributes that are used for publish messages in add
 |Attribute |Type |Mandatory |Description
 
 |`type`
-|<<uattributes-data-model,UMessageType>>
+|<<uattributes-message-types, UMessageType>>
 |yes
-a| 
+a|
 [.specitem,oft-sid="dsn~up-attributes-publish-type~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-*MUST* be set to `UMESSAGE_TYPE_PUBLISH`.
+*MUST* be set to `UMessageType.Publish`.
 --
 
 |`source`
@@ -237,12 +239,12 @@ The following table defines attributes that are used for notification messages i
 |Attribute |Type |Mandatory |Description
 
 |`type`
-|<<uattributes-data-model,UMessageType>>
+|<<uattributes-message-types, UMessageType>>
 |yes
 a|
 [.specitem,oft-sid="dsn~up-attributes-notification-type~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-*MUST* be set to `UMESSAGE_TYPE_NOTIFICATION`.
+*MUST* be set to `UMessageType.Notification`.
 --
 |`source`
 |xref:uri.adoc[UUri]
@@ -277,12 +279,12 @@ The following table defines attributes that are used for RPC request messages in
 |Attribute |Type |Mandatory |Description
 
 |`type`
-|<<uattributes-data-model,UMessageType>>
+|<<uattributes-message-types, UMessageType>>
 |yes
 a|
 [.specitem,oft-sid="dsn~up-attributes-request-type~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-*MUST* be set to `UMESSAGE_TYPE_REQUEST`.
+*MUST* be set to `UMessageType.RpcRequest`.
 --
 
 |`source`
@@ -312,7 +314,7 @@ a|The xref:upriority.adoc[level of priority] that this message should be process
 
 [.specitem,oft-sid="dsn~up-attributes-request-priority~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-* *MUST* be set to `UPRIORITY_CS4` or higher.
+* *MUST* be set to `UPriority.CS4` or higher.
 --
 
 
@@ -358,12 +360,12 @@ The following table defines attributes that are used for RPC response messages i
 |Attribute |Type |Mandatory |Description
 
 |`type`
-|<<uattributes-data-model,UMessageType>>
+|<<uattributes-message-types, UMessageType>>
 |yes
 a|
 [.specitem,oft-sid="dsn~up-attributes-response-type~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-*MUST* be set to `UMESSAGE_TYPE_RESPONSE`.
+*MUST* be set to `UMessageType.RpcResponse`.
 --
 
 |`source`
@@ -434,40 +436,46 @@ The following table provides an overview of the payload formats supported by uPr
 |===
 |UPayloadFormat |MIME Type |Payload encoding
 
-| `UPAYLOAD_FORMAT_UNSPECIFIED`
+| `Unspecified`
 | N/A
 | The payload format is unknown. Clients will need to have gained knowledge about the concrete encoding and semantics of the payload by means of an out-of-band mechanism.
 
 
-|`UPAYLOAD_FORMAT_PROTOBUF_WRAPPED_IN_ANY`
+|`ProtobufWrappedInAny`
 |`application/x-protobuf`
-|The network byte order serialization of a `google.protobuf.Any` structure that contains the payload itself along with the schema URI indicating the (protobuf) type of the payload. 
+a|The network byte order serialization of a `google.protobuf.Any` structure that contains the payload itself along with the schema URI indicating the (protobuf) type of the payload.
 
-|`UPAYLOAD_FORMAT_PROTOBUF`
-|`application/protobuf`
-|The network byte order serialization of the protobuf structure representing the payload data.
+**Note:** Using this payload format allows receivers of messages to determine the type of the payload from the schema URI and deserialize it accordingly. However, it also adds some overhead to the message size due to the additional `google.protobuf.Any` wrapper.
 
-|`UPAYLOAD_FORMAT_JSON`
-|`application/json`
+|`Protobuf`
+|https://www.iana.org/assignments/media-types/application/protobuf[application/protobuf]
+a|The network byte order serialization of the protobuf structure representing the payload data.
+
+**Note:** Using this payload format requires that receivers of messages know the type of the payload in advance, as it is not included in the message itself. This can be achieved through out-of-band mechanisms or by using a predefined schema.
+
+|`Json`
+|https://www.iana.org/assignments/media-types/application/json[application/json]
 |The network byte order UTF-8 encoding of a JSON structure representing the payload data.
 
-|`UPAYLOAD_FORMAT_SOMEIP`
+|`SomeIp`
 |`application/x-someip`
-|The network byte order serialization of SOME/IP payload data.
+|The network byte order serialization of SOME/IP payload data as defined in [Open SOME/IP Specification, Section 5.4](https://some-ip.com/open-someip-specification/open_someip_specification_2025-12.pdf).
 
-|`UPAYLOAD_FORMAT_SOMEIP_TLV`
+|`SomeIpTlv`
 |`application/x-someip_tlv`
-|The network byte order serialization of SOME/IP TLV payload data.
+|The network byte order serialization of SOME/IP payload data using the (optional) TLV encoding as defined in [SOME/IP Protocol Specification, Section 5.1.3.3](https://www.autosar.org/fileadmin/standards/R25-11/FO/AUTOSAR_FO_PRS_SOMEIPProtocol.pdf).
 
-|`UPAYLOAD_FORMAT_RAW`
-|`application/octet-stream`
+|`Raw`
+|https://www.iana.org/assignments/media-types/application/octet-stream[application/octet-stream]
 |A byte array representing the payload data.
 
-|`UPAYLOAD_FORMAT_TEXT`
-|`text/plain`
+|`Text`
+|https://www.iana.org/assignments/media-types/text/plain[text/plain]
 |The network byte order UTF-8 encoding of a unicode string representing the payload data.
 
-|`UPAYLOAD_FORMAT_SHM`
+|`SHM`
 |`application/x-shm`
-|The network byte order address of a shared memory segment.
+a|The network byte order address of a shared memory segment.
+
+**Note:** The `SHM` payload format is supposed to be used for payloads that are stored in a shared memory segment. The `payload` of the `UMessage` will contain the address of the shared memory segment, and the `payloadFormat` attribute will be set to `SHM`. The actual data in the shared memory segment is not part of the `UMessage` and is not transmitted over the network. The semantics of how to access and interpret the data in the shared memory segment is left to the application and is not defined by uProtocol.
 |===

@@ -148,7 +148,7 @@ When receiving a `Subscribe()` request that contains a topic that
 * contains a _wildcard_ uEntity ID (`ue_id`) or
 * contains a _wildcard_ resource ID,
 
-a uSubscription service *MUST* return a failure status message with {ucode_link} `INVALID_ARGUMENT`.
+a uSubscription service *MUST* return a failure status message with {ucode_link} `InvalidArgument`.
 ****
 
 [#unsubscribe-operation]
@@ -203,7 +203,7 @@ When receiving a `Unsubscribe()` request that contains a topic that
 * contains a _wildcard_ uEntity ID (`ue_id`) or
 * contains a _wildcard_ resource ID,
 
-a uSubscription service *MUST* return a failure status message with {ucode_link} `INVALID_ARGUMENT`.
+a uSubscription service *MUST* return a failure status message with {ucode_link} `InvalidArgument`.
 ****
 
 [#fetch-subscribers-operation]
@@ -228,7 +228,7 @@ When receiving a `FetchSubscribers()` request that contains a topic that
 * contains a _wildcard_ uEntity ID (`ue_id`) or
 * contains a _wildcard_ resource ID,
 
-a uSubscription service *MUST* return a failure status message with {ucode_link} `INVALID_ARGUMENT`.
+a uSubscription service *MUST* return a failure status message with {ucode_link} `InvalidArgument`.
 ****
 
 [#fetch-subscriptions-operation]
@@ -258,7 +258,7 @@ When receiving a `FetchSubscriptions()` request that contains a topic that
 * contains a _wildcard_ uEntity ID (`ue_id`) or
 * contains a _wildcard_ resource ID,
 
-a uSubscription service *MUST* return a failure status message with {ucode_link} `INVALID_ARGUMENT`.
+a uSubscription service *MUST* return a failure status message with {ucode_link} `InvalidArgument`.
 ****
 
 [.specitem,oft-sid="dsn~usubscription-fetch-subscriptions-invalid-subscriber~1",oft-needs="impl,utest"]
@@ -269,7 +269,7 @@ When receiving a `FetchSubscriptions()` request that contains a subscriber URI t
 * contains a _wildcard_ uEntity ID (`ue_id`) or
 * contains a _wildcard_ resource ID,
 
-a uSubscription service *MUST* return a failure status message with {ucode_link} `INVALID_ARGUMENT`.
+a uSubscription service *MUST* return a failure status message with {ucode_link} `InvalidArgument`.
 ****
 
 [#usubscription-topic]
@@ -410,7 +410,7 @@ When receiving a `RegisterForNotifications()` request that contains a topic that
 * contains a _wildcard_ uEntity ID (`ue_id`) or
 * contains a _wildcard_ resource ID,
 
-a uSubscription service *MUST* return a failure status message with {ucode_link} `INVALID_ARGUMENT`.
+a uSubscription service *MUST* return a failure status message with {ucode_link} `InvalidArgument`.
 ****
 
 [#unregister-for-notifications-operation]
@@ -435,7 +435,7 @@ When receiving a `UnregisterForNotifications()` request that contains a topic th
 * contains a _wildcard_ uEntity ID (`ue_id`) or
 * contains a _wildcard_ resource ID,
 
-a uSubscription service *MUST* return a failure status message with {ucode_link} `INVALID_ARGUMENT`.
+a uSubscription service *MUST* return a failure status message with {ucode_link} `InvalidArgument`.
 ****
 
 == Timeout & Retry Logic
@@ -473,7 +473,7 @@ When a client invokes the uSubscription service's `Reset()` operation, uSubscrip
 
 [.specitem,oft-sid="req~usubscription-reset-only-usubscription~1",oft-needs="impl,utest"]
 ****
-When receiving a `Reset()` call from a source that is not another uSubscription services (i.e. from source URIs where uEntity ID (`ue_id`) does not equal _0x0_), uSubscription service *MUST* return a failure status message with {ucode_link} `PERMISSION_DENIED`.
+When receiving a `Reset()` call from a source that is not another uSubscription services (i.e. from source URIs where uEntity ID (`ue_id`) does not equal _0x0_), uSubscription service *MUST* return a failure status message with {ucode_link} `PermissionDenied`.
 ****
 
 == uSubscription Sequences

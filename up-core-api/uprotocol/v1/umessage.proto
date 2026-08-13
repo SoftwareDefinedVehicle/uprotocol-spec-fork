@@ -25,9 +25,10 @@ option java_multiple_files = true;
 // It contains a header (UAttributes), and payload and is a way of representing a
 // message that would be sent between two uEntities.
 message UMessage {
-    // uProtocol mandatory and optional attributes
+    // Message metadata and attributes describing the message's purpose,
+    // content and processing requirements.
     UAttributes attributes = 1;
 
-    // Optional message payload
+    // Message payload
     optional bytes payload = 2;
 }
