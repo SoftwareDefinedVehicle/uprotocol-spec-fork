@@ -43,7 +43,7 @@ message UAttributes {
     UPriority priority = 5;
 
     // The amount of time (in milliseconds) after which this message MUST NOT be delivered/processed anymore.
-    optional uint32 ttl = 6;
+    uint32 ttl = 6;
 
     // The service consumer's permission level.
     // Declared as optional because only RPC Request messages may carry it.
