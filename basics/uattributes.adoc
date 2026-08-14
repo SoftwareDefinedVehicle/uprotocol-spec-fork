@@ -81,9 +81,9 @@ class UPayloadFormat {
   UPAYLOAD_FORMAT_SHM
 }
 
-UAttributes-->UMessageType : type
-UAttributes--> "0..1" UPriority : priority
-UAttributes--> "0..1" UPayloadFormat : payloadFormat
+UAttributes --> UMessageType : type
+UAttributes --> "0..1" UPriority : priority
+UAttributes --> "0..1" UPayloadFormat : payloadFormat
 ----
 
 Each xref:../languages.adoc[uProtocol Language Library]
@@ -420,8 +420,8 @@ The amount of time after which this response message should no longer be deliver
 
 |`commstatus`
 |xref:error_model.adoc#data-model-definition[UCode]
-|no
-a|The outcome of the RPC. No value or `UCode.OK` indicate successful invocation of the operation. All other values indicate that invocation was unsuccessful. The concrete value indicates the type of error that has occurred.
+|yes
+a|The outcome of the RPC. `UCode.Ok` indicates successful invocation of the operation. All other values indicate that invocation was unsuccessful. The concrete value indicates the type of error that has occurred. The message's payload may contain additional information about the error.
 
 |===
 

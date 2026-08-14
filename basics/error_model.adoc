@@ -41,36 +41,36 @@ classDiagram
 
 class UStatus {
   message: String[0..1]
-  details: Object[*]
+  details: Object[0..*]
 }
 
 class UCode {
   <<Enumeration>>
-  OK
-  CANCELLED
-  UNKNOWN
-  INVALID_ARGUMENT
-  DEADLINE_EXCEEDED
-  NOT_FOUND
-  ALREADY_EXISTS
-  PERMISSION_DENIED
-  UNAUTHENTICATED
-  RESOURCE_EXHAUSTED
-  FAILED_PRECONDITION
-  ABORTED
-  OUT_OF_RANGE
-  UNIMPLEMENTED
-  INTERNAL
-  UNAVAILABLE
-  DATA_LOSS
+  Ok
+  Cancelled
+  Unknown
+  InvalidArgument
+  DeadlineExceeded
+  NotFound
+  AlreadyExists
+  PermissionDenied
+  Unauthenticated
+  ResourceExhausted
+  FailedPrecondition
+  Aborted
+  OutOfRange
+  Unimplemented
+  Internal
+  Unavailable
+  DataLoss
 }
 
-UStatus--> "0..1" UCode : code
+UStatus o-- UCode : code
 ----
 
 Each xref:../languages.adoc[uProtocol Language Library]
 
-[.specitem,oft-sid="req~ustatus-data-model-impl~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
+[.specitem,oft-sid="req~ustatus-data-model-impl~2",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
 * *MUST* implement the <<ustatus-data-model>> using the language specific type system.
 --
@@ -108,14 +108,14 @@ A service consumer invoking this operation will then receive a `UMessage` with a
 In case of _successful_ execution of a service operation, a service provider
 
 * *MUST* put the operation's response Protobuf Message into the response xref:umessage.adoc[`UMessage`]'s `payload`
-* *MAY* set the response message's `commstatus` attribute to value `UCode.OK` to indicate successful execution. If the `commstatus` attribute is not set, it is assumed to be `UCode.OK`.
+* *MUST* set the response message's `commstatus` attribute to value `UCode.Ok` to indicate successful execution.
 --
 
 [.specitem,oft-sid="dsn~service-error-model-error-response~1",oft-needs="impl,utest",oft-tags="ServiceProvider"]
 --
 In case of _erroneous_ execution, a service provider
 
-* *MUST* set the `commstatus` attribute of the response xref:umessage.adoc[`UMessage`] to the <<ustatus-data-model,UCode>> value other than `UCode.OK` which most closely matches the reason for failure.
+* *MUST* set the `commstatus` attribute of the response xref:umessage.adoc[`UMessage`] to the <<ustatus-data-model,UCode>> value other than `UCode.Ok` which most closely matches the reason for failure.
 * *SHOULD* populate the response xref:umessage.adoc[`UMessage`] `payload` with a <<ustatus-data-model,UStatus>> that contains additional failure information (e.g. message, details). The `code` property value of the `UStatus` in the payload *MUST* be the same as the value of the response message's `commstatus` attribute.
 --
 
@@ -123,6 +123,6 @@ In case of _erroneous_ execution, a service provider
 
 [.specitem,oft-sid="dsn~service-error-model-failed-rpc~1",oft-needs="impl,utest",oft-tags="ServiceConsumer"]
 --
-A service consumer *MUST* consider an RPC as _failed_, if the `commstatus` property contained in the xref:uattributes.adoc#response-attributes[response message attributes] has a value other than `UCode.OK`.
+A service consumer *MUST* consider an RPC as _failed_, if the `commstatus` property contained in the xref:uattributes.adoc#response-attributes[response message attributes] has a value other than `UCode.Ok`.
 In that case, the consumer *SHOULD* try to extract a <<ustatus-data-model,UStatus>> from the response message's payload and make it available to application code.
 --

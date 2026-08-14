@@ -30,7 +30,7 @@ message UAttributes {
     // A unique message identifier.
     UUID id = 1;
 
-    // This message's type which also indicates its purpose and determines contraints on the other properties.
+    // This message's type which also indicates its purpose and determines constraints on the other properties.
     UMessageType type = 2;
 
     // The origin (address) of this message.
@@ -46,16 +46,19 @@ message UAttributes {
     optional uint32 ttl = 6;
 
     // The service consumer's permission level.
+    // Declared as optional because only RPC Request messages may carry it.
     optional uint32 permission_level = 7;
 
-    // A UCode indicating an error that has occurred
-    // during the delivery of either an RPC Request or Response message.
+    // A code indicating an error that has occurred during a remote procedure call.
+    // This is mandatory for RPC Response messages only.
     optional UCode commstatus = 8;
 
-    // The identifier that a service consumer can use to correlate an RPC Repsonse message with its RPC Request.
-    UUID reqid = 9;
+    // The identifier that a service consumer can use to correlate an RPC Response message with its RPC Request.
+    // This is mandatory for RPC Request messages only.
+    optional UUID reqid = 9;
 
     // The service consumer's access token.
+    // Declared as optional because only RPC Request messages may carry it.
     optional string token = 10;
 
     // A tracing identifier to use for correlating messages across the system.
