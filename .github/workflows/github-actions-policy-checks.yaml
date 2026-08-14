@@ -1,5 +1,5 @@
 # ********************************************************************************
-#  Copyright (c) 2025 Contributors to the Eclipse Foundation
+#  Copyright (c) 2026 Contributors to the Eclipse Foundation
 #
 #  See the NOTICE file(s) distributed with this work for additional
 #  information regarding copyright ownership.
@@ -11,26 +11,24 @@
 #  SPDX-License-Identifier: Apache-2.0
 # *******************************************************************************/
 
-name: Lint Gherkin Features
+name: GitHub Actions Policy Checks
 
 on:
-  workflow_dispatch:
   pull_request:
     paths:
-      - '**/*.feature'
+      - ".github/**"
+  push:
+    branches: [main]
+    paths:
+      - ".github/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  lint-gherkin:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-
-      - name: install gherklin
-        run: |
-          npm install -D gherklin
-          npm install -D tsx
-
-      - name: lint feature files
-        run: |
-          npx tsx ./node_modules/.bin/gherklin
+  policy-checks:
+    permissions:
+      contents: read
+      security-events: write
+    uses: eclipse-uprotocol/ci-cd/.github/workflows/github-actions-policy-checks.yaml@ad3f99eac0675c714f08c473412dae14d9fecaa8 # main
