@@ -222,9 +222,10 @@ a|
 |none
 a|The topic that this message is published to.
 
-[.specitem,oft-sid="dsn~up-attributes-publish-source~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
+[.specitem,oft-sid="dsn~up-attributes-publish-source~2",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-The topic UUri's `resource_id` *MUST* be set to a value in range `[0x8000, 0xFFFE]`.
+The topic (source) UUri of a Publish message *MUST* have its `resource_id` set to a value in range `[0x8000, 0xFFFE]`.
+The topic UUri *MUST NOT* contain any wildcard values in any of its fields.
 --
 
 |`sink`
@@ -235,7 +236,7 @@ a|
 
 [.specitem,oft-sid="dsn~up-attributes-publish-sink~2",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-A xref:../up-l2/dispatchers/README.adoc#dispatcher-types[uStreamer] can set the `sink` property of a Publish message to indicate to an underlying transport implementation the authority of remote uEntities that have subscribed to the message's topic. Any such UUri
+A xref:../up-l2/dispatchers/README.adoc#dispatcher-types[uStreamer] *MAY* set the `sink` property of a Publish message to indicate to an underlying transport implementation the authority of remote uEntities that have subscribed to the message's topic. Any such UUri
 
 * *MUST* contain a non-empty _authority_name_, and
 * *MUST* contain wildcard values for all of the UUri's other fields.
@@ -268,9 +269,10 @@ a|
 a|
 A xref:uri.adoc[UUri] representing the component that this notification originates from.
 
-[.specitem,oft-sid="dsn~up-attributes-notification-source~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
+[.specitem,oft-sid="dsn~up-attributes-notification-source~2",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-The origin UUri's `resource_id` *MUST* be set to a value in range `[0x8000, 0xFFFE]`.
+The origin (source) UUri of a Notification message *MUST* have its `resource_id` set to a value in range `[0x8000, 0xFFFE]`.
+The origin UUri *MUST NOT* contain any wildcard values in any of its fields.
 --
 
 |`sink`
@@ -279,9 +281,10 @@ The origin UUri's `resource_id` *MUST* be set to a value in range `[0x8000, 0xFF
 |none
 a|A xref:uri.adoc[UUri] representing the destination of this notification.
 
-[.specitem,oft-sid="dsn~up-attributes-notification-sink~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
+[.specitem,oft-sid="dsn~up-attributes-notification-sink~2",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-The destination UUri's `resource_id` *MUST* be set to `0`.
+The destination (sink) UUri of a Notification message *MUST* have its `resource_id` set to `0`.
+The destination UUri *MUST NOT* contain any wildcard values in any of its fields.
 --
 
 |===
@@ -311,9 +314,10 @@ a|
 |none
 a|The xref:uri.adoc[UUri] that the service consumer expects to receive the response message at.
 
-[.specitem,oft-sid="dsn~up-attributes-request-source~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
+[.specitem,oft-sid="dsn~up-attributes-request-source~2",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-The reply-to UUri's `resource_id` *MUST* be set to `0`.
+The reply-to (source) UUri of an RPC Request message *MUST* have its `resource_id` set to `0`.
+The reply-to UUri *MUST NOT* contain any wildcard values in any of its fields.
 --
 
 |`sink`
@@ -322,9 +326,10 @@ The reply-to UUri's `resource_id` *MUST* be set to `0`.
 |none
 a|A xref:uri.adoc[UUri] identifying the service provider's method to invoke.
 
-[.specitem,oft-sid="dsn~up-attributes-request-sink~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
+[.specitem,oft-sid="dsn~up-attributes-request-sink~2",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-The invoked method UUri's `resource_id` *MUST* be set to a value in range `[0x0001, 0x7FFF]`.
+The invoked method (sink) UUri of an RPC Request message *MUST* have its `resource_id` set to a value in range `[0x0001, 0x7FFF]`.
+The invoked method UUri *MUST NOT* contain any wildcard values in any of its fields.
 --
 
 |`priority`
@@ -399,9 +404,10 @@ a|
 |none
 a|The xref:uri.adoc[UUri] identifying the method that has been invoked and which this message is the outcome of.
 
-[.specitem,oft-sid="dsn~up-attributes-response-source~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
+[.specitem,oft-sid="dsn~up-attributes-response-source~2",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-The invoked method UUri's `resource_id` *MUST* be set to a value in range `[0x0001, 0x7FFF]`.
+The invoked method (source) UUri of an RPC Response message *MUST* have its `resource_id` set to a value in range `[0x0001, 0x7FFF]`.
+The invoked method UUri *MUST NOT* contain any wildcard values in any of its fields.
 --
 
 |`sink`
@@ -410,9 +416,10 @@ The invoked method UUri's `resource_id` *MUST* be set to a value in range `[0x00
 |none
 a|The xref:uri.adoc[UUri] that the service consumer expects to receive this response message at.
 
-[.specitem,oft-sid="dsn~up-attributes-response-sink~1",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
+[.specitem,oft-sid="dsn~up-attributes-response-sink~2",oft-needs="impl,utest",oft-tags="LanguageLibrary"]
 --
-The reply-to UUri's `resource_id` *MUST* be set to `0`.
+The reply-to (sink) UUri of an RPC Response message *MUST* have its `resource_id` set to `0`.
+The reply-to UUri *MUST NOT* contain any wildcard values in any of its fields.
 --
 
 |`requestId`
