@@ -103,7 +103,7 @@ A service consumer invoking this operation will then receive a `UMessage` with a
 
 == Service Provider Implementation
 
-[.specitem,oft-sid="dsn~service-error-model-success-response~1",oft-needs="impl,utest",oft-tags="ServiceProvider"]
+[.specitem,oft-sid="dsn~service-error-model-success-response~2",oft-needs="impl,utest",oft-tags="ServiceProvider"]
 --
 In case of _successful_ execution of a service operation, a service provider
 
